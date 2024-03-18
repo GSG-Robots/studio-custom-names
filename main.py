@@ -23,7 +23,9 @@ def is_admin():
 def elevate():
     if not is_admin():
         print("Not admin, elevating...")
-        print("If you are on windows, you won't see the log output in the console, but it will be in log.txt.")
+        print(
+            "If you are on windows, you won't see the log output in the console, but it will be in log.txt."
+        )
         _elevate()
 
 
@@ -33,7 +35,9 @@ def _load_id_rules(file_path):
         mapping = {
             x[0]: x[1]
             for x in (
-                y.split(" => ") for y in mapping_raw.split("\n") if y.strip() != "" and not y.startswith("#")
+                y.split(" => ")
+                for y in mapping_raw.split("\n")
+                if y.strip() != "" and not y.startswith("#")
             )
         }
     id_rules.update(mapping)
@@ -45,7 +49,9 @@ def _load_regex_rules(file_path):
         mapping = {
             re.compile(x[0]): x[1]
             for x in (
-                y.split(" => ") for y in mapping_raw.split("\n") if y.strip() != "" and not y.startswith("#")
+                y.split(" => ")
+                for y in mapping_raw.split("\n")
+                if y.strip() != "" and not y.startswith("#")
             )
         }
     regex_rules.update(mapping)
@@ -59,9 +65,7 @@ def load_rules():
 
 
 def ensure_backup_original():
-    if not os.path.exists(
-        str(studio_data_root / "StudioPartDefinition2.txt.original")
-    ):
+    if not os.path.exists(str(studio_data_root / "StudioPartDefinition2.txt.original")):
         with open(
             str(studio_data_root / "StudioPartDefinition2.txt"),
             "r",
