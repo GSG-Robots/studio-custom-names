@@ -1,4 +1,7 @@
+# normale Beams
 ^Technic, Liftarm Thick 1 x (\d+)(?: \(Spacer\))?$ => {0}er Beam
 ^Technic, Liftarm Thick 1 x (\d+) - Axle Hole$ => {0}er Beam mit Achsenlöchern
+
+# halbe Beams
 ^Technic, Liftarm Thin 1 x (\d+)$ => halber {0}er Beam
 ^Technic, Liftarm Thin 1 x (\d+) - Axle Holes$ => halber {0}er Beam mit Achsenlöchern
