@@ -2,8 +2,12 @@
 name = "studio-custom-names"
 version = "0.1.0"
 description = ""
-authors = ["GSG-Robots"]
+authors = ["GSG-Robots", "J0J0HA"]
 readme = "README.md"
+license = "GNU General Public License v3.0"
+repository = "https://github.com/GSG-Robots/studio-custom-names"
+homepage = "https://github.com/GSG-Robots/studio-custom-names"
+
 
 [tool.poetry.dependencies]
 python = "^3.11"
