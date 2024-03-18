@@ -113,7 +113,7 @@ def generate_regex_result(s):
 
 #########
 
-logfile = open("log.txt", "w")
+logfile = open("log.txt", "w", errors="replace", encoding="utf-8")
 
 elevate()
 
