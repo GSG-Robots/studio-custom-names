@@ -1,0 +1,2 @@
+# Using poetry is preferred, no support for other installation methods
+elevate
