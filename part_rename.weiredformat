@@ -1,0 +1,13 @@
+^Technic, Liftarm Thick 1 x (\d+)(?: \(Spacer\))?$ => {0}er Beam
+^Technic, Liftarm Thick 1 x (\d+) - Axle Hole$ => {0}er Beam mit Achsenlöchern
+^Technic, Liftarm Thin 1 x (\d+)$ => halber {0}er Beam
+^Technic, Liftarm Thin 1 x (\d+) - Axle Holes$ => halber {0}er Beam mit Achsenlöchern
+^Technic, Axle  ?(\d+)L$ => {0}er Achse
+^Technic, Axle  ?(\d+)L with Stop$ => {0}er Achse mit Stopp
+^Technic, Axle  1L with Pin with Friction Ridges$ => Converter
+^Technic, Axle  1L with Pin without Friction Ridges$ => grauer Converter
+^Technic, Axle  1L with Pin 2L with Friction Ridges$ => dunkelgraues Specialteil
+^Technic, Axle  2L with Pin with Friction Ridges$ => schwarzes Specialteil
+^Technic, Axle  2L with Pin without Friction Ridges$ => weißes Specialteil
+^Technic, Axle  1L with Tow Ball$ => Achsen-Ballpin
+^Technic, Pin with Friction Ridges and Tow Ball with Round Pin Hole$ => Ballpin
