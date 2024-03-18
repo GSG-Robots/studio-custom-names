@@ -1,0 +1,2 @@
+^Technic, Axle  ?(\d+)L$ => {0}er Achse
+^Technic, Axle  ?(\d+)L with Stop$ => {0}er Achse mit Stopp
