@@ -1,2 +1,3 @@
-^Technic, Axle  ?(\d+)L$ => {0}er Achse
+# Schließt die 2er Achsen aus. Stattdessen in Exceptions.id.rules
+^Technic, Axle  ?(?!2)(\d+)L$ => {0}er Achse
 ^Technic, Axle  ?(\d+)L with Stop$ => {0}er Achse mit Stopp

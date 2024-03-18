@@ -9,6 +9,8 @@
 2780     Technic, Pin with Short Friction Ridges                                          =>                                  Blackie
 2780     Technic, Pin with Friction Ridges Lengthwise, Staggered, with or without Center Slots =>                                  Blackie
 32017    Technic, Liftarm Thin 1 x 5                                                      =>                          halber 5er Beam
+32062    Technic, Axle  2L Notched                                                        =>                                2er Achse
+32062    Technic, Axle 2 Notched                                                          =>                                2er Achse
 32063    Technic, Liftarm Thin 1 x 6                                                      =>                          halber 6er Beam
 32065    Technic, Liftarm Thin 1 x 7                                                      =>                          halber 7er Beam
 32073    Technic, Axle  5L                                                                =>                                5er Achse
@@ -23,7 +25,6 @@
 32525    Technic, Liftarm Thick 1 x 11                                                    =>                                11er Beam
 3673     Technic, Pin without Friction Ridges Lengthwise                                  =>                           grauer Blackie
 3673     Technic, Pin without Friction Ridges                                             =>                           grauer Blackie
-3704     Technic, Axle  2L                                                                =>                                2er Achse
 3705     Technic, Axle  4L                                                                =>                                4er Achse
 3706     Technic, Axle  6L                                                                =>                                6er Achse
 3707     Technic, Axle  8L                                                                =>                                8er Achse
