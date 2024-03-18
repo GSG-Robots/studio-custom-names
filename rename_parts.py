@@ -113,9 +113,9 @@ def generate_regex_result(s):
 
 #########
 
-logfile = open("log.txt", "w", errors="replace", encoding="utf-8")
-
 elevate()
+
+logfile = open("log.txt", "w", errors="replace", encoding="utf-8")
 
 ensure_backup_original()
 
