@@ -1,2 +1,2 @@
-# Using poetry is preferred, no support for other installation methods
+# Using poetry is highly encouraged, no support for problems with other installation methods
 elevate
