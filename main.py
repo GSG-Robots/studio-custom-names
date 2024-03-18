@@ -17,7 +17,7 @@ def is_admin():
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
     except:
-        return False
+        return os.getuid() == 0
 
 
 def elevate():
@@ -91,13 +91,13 @@ def get_part_definition():
     else:
         content = content[len("Studio ") :]
     lines = content.split("\n")
-    table = [re.split(r"\t", line) for line in lines]
+    table_ = [re.split(r"\t", line) for line in lines]
 
-    return table
+    return table_
 
 
-def store_part_definition(table):
-    new_content = "Studio " + "\n".join(["\t".join(row) for row in table])
+def store_part_definition(table_):
+    new_content = "Studio " + "\n".join(["\t".join(row) for row in table_])
     with open(
         str(studio_data_root / "StudioPartDefinition2.txt"),
         "w",
@@ -127,13 +127,13 @@ for row in table:
     if len(row) < 7:
         continue
     name = row[6]
-    id = row[2]
-    if id in id_rules:
-        name = id_rules[id]
+    part_id = row[2]
+    if part_id in id_rules:
+        name = id_rules[part_id]
     for k, v in regex_rules.items():
         name = re.sub(k, generate_regex_result(v), name)
     if name != row[6]:
-        txt = f"{id:<8} {row[6]:<80} => {name:>40}"
+        txt = f"{part_id:<8} {row[6]:<80} => {name:>40}"
         print(txt, file=logfile)
         print(txt)
     row[6] = name
