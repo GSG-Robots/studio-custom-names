@@ -5,8 +5,62 @@ This is made for windows, but may also work on linux machines.
 
 ## Usage
 
-1. Get your Studio Installation Path.
-  Search for Studio in the start menu and select "Open file location". If you see a single file in the next window, right click it and select "Open file location" there as well.
-  Now copy the path of this folder.
-2. Run "main.py" and paste the path you copied in the first step.
-3. If Studio is running, close it first. Start Studio and enjoy your custom part names.
+1. Adjust the renaming rules in the ``rules`` directory following [this format](#rules).
+2. Run "main.py"
+3. If Studio is running, close it.
+4. Start Studio and enjoy your custom part names.
+
+## Rules
+
+The rules are stored in the ``rules`` directory. Each file in this directory is a ``.rules`` file.  
+Creating different files allows you to group different rules together.  
+
+> [!WARNING]
+> The rules are applied in the order they are read from the filesystem.
+> This means the files are being read in alphabetical order and the rules in each file are applied in the order they are read from the file (from top to bottom).
+> Also, the rules are applied one after another, so the result of the first rule is used as the input for the second rule, and so on.
+> To avoid problems with regex-rules, make sure each part is only renamed once and never matches the new name of a part that has already been renamed.
+> (Except you know what you are doing)
+  
+There are two types of rules. In both, empty lines and lines starting with ``#`` are ignored. (Spaces before the ``#`` invalidate the comment.)
+
+### ID Rules
+
+ID-based rulesets are defined in files with the ``.id.rules`` extension.  
+In these files, each line contains a rule in the following format:
+
+```plaintext
+<id> => <new_name>
+```
+
+Where ``<id>`` is the part's ID (on bricklink) and ``<new_name>`` is the name you want to give to the part.
+
+### Regex Rules
+
+Regex-based rulesets are defined in files with the ``.regex.rules`` extension.  
+In these files, each line contains a rule in the following format:
+
+```plaintext
+<regex> => <new_name>
+```
+
+Where ``<regex>`` is a regular expression that matches the part's (bricklink) name and ``<new_name>`` is the name you want to give to the part.
+This can be useful to rename multiple parts at once, like renaming all liftarms to beams, using the following rule:
+
+```plaintext
+^Technic, Liftarm Thick 1 x (\d+)$ => {0}er Beam
+```
+
+In this example, the ``{0}`` placeholder is replaced by the first capture group in the regular expression, which is the length of the liftarm. ``(\d+)`` matches one or more digits, and the ``^`` and ``$`` match the start and end of the name. For more tips for regular expressions, see [this tool](https://regex101.com).
+You can use as many capture groups as you want, and they are numbered from 0 to infinity.
+
+## Changing the rules
+
+If you want to change the part names, you can simply edit the rules files in the ``rules`` directory and run the script again.
+
+The rules are always applied on the original part names, so you dont have to change the rules alltogether if you want to change the part names again.
+
+## Reverting the changes
+
+To revert the changes, simply delete the ``StudioPartsDefinition2.txt`` file in the ``data`` folder in the Studio installation directory (for Windows usually ``C:\Program Files\Studio 2.0\data``).
+Then, move the ``StudioPartsDefinition2.txt.original`` file to the ``StudioPartsDefinition2.txt`` file.
