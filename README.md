@@ -63,4 +63,4 @@ The rules are always applied on the original part names, so you dont have to cha
 ## Reverting the changes
 
 To revert the changes, simply delete the ``StudioPartsDefinition2.txt`` file in the ``data`` folder in the Studio installation directory (for Windows usually ``C:\Program Files\Studio 2.0\data``).
-Then, move the ``StudioPartsDefinition2.txt.original`` file to the ``StudioPartsDefinition2.txt`` file.
+Then, move/rename the ``StudioPartsDefinition2.txt.original`` file to ``StudioPartsDefinition2.txt``.
