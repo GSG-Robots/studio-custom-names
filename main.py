@@ -33,7 +33,7 @@ def _load_id_rules(file_path):
         mapping = {
             x[0]: x[1]
             for x in (
-                y.split(" => ") for y in mapping_raw.split("\n") if y.strip() != ""
+                y.split(" => ") for y in mapping_raw.split("\n") if y.strip() != "" and not y.startswith("#")
             )
         }
     id_rules.update(mapping)
@@ -45,7 +45,7 @@ def _load_regex_rules(file_path):
         mapping = {
             re.compile(x[0]): x[1]
             for x in (
-                y.split(" => ") for y in mapping_raw.split("\n") if y.strip() != ""
+                y.split(" => ") for y in mapping_raw.split("\n") if y.strip() != "" and not y.startswith("#")
             )
         }
     regex_rules.update(mapping)
