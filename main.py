@@ -20,8 +20,8 @@ import os
 import re
 import pathlib
 import ctypes
-from elevate import elevate as _elevate
 import glob
+import sys
 
 
 config_root = pathlib.Path(__file__).parent.absolute()
@@ -50,7 +50,8 @@ def elevate():
         print(
             "If you are on windows, you won't see the log output in the console, but it will be in log.txt."
         )
-        _elevate()
+        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
+        sys.exit(0)
 
 def is_studio_installed():
     return os.path.exists(str(studio_root))
