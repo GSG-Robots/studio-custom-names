@@ -1,3 +1,21 @@
+"""
+Studio Custom Names is a program to change the names of the parts in Studio 2.0.
+Copyright (C) 2024 GSG-Robots & J0J0HA
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 import os
 import re
 import pathlib
@@ -12,6 +30,13 @@ studio_data_root = pathlib.Path(r"C:\Program Files\Studio 2.0\data")
 regex_rules = {}
 id_rules = {}
 
+
+print("""
+Studio Custom Names - Copyright (C) 2024  GSG-Robots & J0J0HA
+This program comes with ABSOLUTELY NO WARRANTY; for details see the LICENSE-file.
+This is free software, and you are welcome to redistribute it
+under certain conditions; for details see the LICENSE-file.
+""")
 
 def is_admin():
     try:
