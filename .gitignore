@@ -1,3 +1,4 @@
 elevated_stdout.txt
-install.build
-install.dist
+build
+dist
+install.spec
