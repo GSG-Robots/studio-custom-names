@@ -1,0 +1,6 @@
+^Technic, Liftarm, Modified Frame Thick (\d+) x (\d+) Open Center$ => Beamframe {0} x {1}
+
+^Technic, Panel Plate (\d+) x (\d+) x (\d+)$ => Platte {0} x {1} x {2}
+^Technic, Panel Plate (\d+) x (\d+) x (\d+) Tampered$ => schräge Platte {0} x {1} x {2}
+
+^Technic, Liftarm, Modified Bent Thick \d+ x \d+ \((\d+) - (\d+)\)$ => kleiner Haken ({0} - {1})

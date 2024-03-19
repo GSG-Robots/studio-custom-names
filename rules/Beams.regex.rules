@@ -5,3 +5,6 @@
 # halbe Beams
 ^Technic, Liftarm Thin 1 x (\d+)$ => halber {0}er Beam
 ^Technic, Liftarm Thin 1 x (\d+) - Axle Holes$ => halber {0}er Beam mit Achsenlöchern
+
+# verdrehte Beams
+^Technic, Liftarm, Modified Perpendicular Holes Thick 1 x (\d+)$ => verdrehter {0}er Beam
