@@ -27,9 +27,8 @@ jobs:
       run: |
         py -m pip install --upgrade pip
         py -m pip install -U pyinstaller
-        set PATH=%PATH%;C:\hostedtoolcache\windows\Python\3.12.2\x64\Scripts
     - name: Build
-      run: py -m pyinstaller install.py
+      run: C:\hostedtoolcache\windows\Python\3.12.2\x64\Scripts\pyinstaller install.py
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.3.1
       with:
