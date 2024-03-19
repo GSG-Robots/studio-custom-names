@@ -58,9 +58,11 @@ You can use as many capture groups as you want, and they are numbered from 0 to 
 
 If you want to change the part names, you can simply edit the rules files in the ``rules`` directory and run the script again.
 
-The rules are always applied on the original part names, so you dont have to change the rules alltogether if you want to change the part names again.
+The rules are always applied ontop of the original part names, so you dont have to change the rules alltogether if you want to change the part names again.
 
 ## Reverting the changes
 
 To revert the changes, simply delete the ``StudioPartsDefinition2.txt`` file in the ``data`` folder in the Studio installation directory (for Windows usually ``C:\Program Files\Studio 2.0\data``).
 Then, move/rename the ``StudioPartsDefinition2.txt.original`` file to ``StudioPartsDefinition2.txt``.
+
+Alternatively, you can run delete all the rules files in the ``rules`` directory and run the script again.
