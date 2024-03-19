@@ -1,7 +1,7 @@
 # studio-custom-names
 
 This Tool allows you to use custom part names in Stud.io, in case you struggle with bricklink's names.
-This is made for windows, but may also work on linux machines.
+This is made for windows, and won't work with MacOS.
 
 ## Usage
 
