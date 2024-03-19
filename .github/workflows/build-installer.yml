@@ -19,14 +19,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python 3.11
+    - name: Set up Python 3.12.2
       uses: actions/setup-python@v3
       with:
-        python-version: "3.11"
+        python-version: "3.12.2"
     - name: Install dependencies
       run: |
         py -m pip install --upgrade pip
         py -m pip install -U pyinstaller
+        set PATH=%PATH%;C:\hostedtoolcache\windows\Python\3.12.2\x64\Scripts
     - name: Build
       run: py -m pyinstaller install.py
     - name: Upload a Build Artifact
