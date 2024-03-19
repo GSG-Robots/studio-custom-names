@@ -22,20 +22,28 @@ import pathlib
 import ctypes
 import glob
 import sys
+import time
 
 
 config_root = pathlib.Path(__file__).parent.absolute()
+elev_proxy_file = config_root / "elevated_stdout.txt"
+log_file = config_root / "log.txt"
 
 regex_rules = {}
 id_rules = {}
 
 
-print("""
+print(
+    """
+----------
 Studio Custom Names - Copyright (C) 2024  GSG-Robots & J0J0HA
 This program comes with ABSOLUTELY NO WARRANTY; for details see the LICENSE-file.
 This is free software, and you are welcome to redistribute it
 under certain conditions; for details see the LICENSE-file.
-""")
+----------
+"""
+)
+
 
 def is_admin():
     try:
@@ -44,17 +52,49 @@ def is_admin():
         return os.getuid() == 0
 
 
-def elevate():
+def follow_until_closed(path: pathlib.Path):
+    pos = 0
+    while True:
+        with open(path, "r", errors="replace", encoding="utf-8") as file:
+            file.seek(pos)
+            line = file.readline()
+            pos = file.tell()
+        try:
+            os.rename(elev_proxy_file, elev_proxy_file)
+            break
+        except PermissionError:
+            pass
+        if not line:
+            time.sleep(0.1)
+            continue
+        yield line
+
+
+def elevate(selected_path):
     if not is_admin():
-        print("Not admin, elevating...")
-        print(
-            "If you are on windows, you won't see the log output in the console, but it will be in log.txt."
+        print("Not admin, elevating...\n\n")
+        code = ctypes.windll.shell32.ShellExecuteW(
+            None,
+            "runas",
+            "cmd",
+            f"/c \"{sys.executable} {str(config_root / 'main.py')} {selected_path}\" >> {elev_proxy_file}",
+            0,
         )
-        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
+        success = code >= 32
+        if not success:
+            print("Failed to elevate. Try running the program as admin. Exiting.")
+            sys.exit(1)
+        while not os.path.exists(elev_proxy_file):
+            time.sleep(0.1)
+        for line in follow_until_closed(elev_proxy_file):
+            print(line, end="")
+        os.remove(elev_proxy_file)
         sys.exit(0)
 
-def is_studio_installed():
-    return os.path.exists(str(studio_root))
+
+def exists(path: pathlib.Path):
+    return os.path.exists(str(path))
+
 
 def _load_id_rules(file_path):
     with open(file_path, "r", errors="replace", encoding="utf-8") as f:
@@ -144,28 +184,52 @@ def generate_regex_result(s):
 
 #########
 
-studio_root = pathlib.Path(r"C:\Program Files\Studio 2.0")
+if not sys.argv[1:]:
+    known_paths = [
+        (
+            pathlib.Path(r"C:\Program Files\Studio 2.0"),
+            "Studio 2.0 (Default Directory)",
+        ),
+        (
+            pathlib.Path(r"C:\Program Files\Studio 2.0 EarlyAccess"),
+            "Studio 2.0 EarlyAccess (Default Directory)",
+        ),
+    ]
 
-if not is_studio_installed():
-    studio_root = pathlib.Path(r"C:\Program Files (x86)\Studio 2.0 EarlyAccess")
-    
-if not is_studio_installed():
-    print("Studio was not found on the default install location.")
-    new_path = input("Please enter the path to the Studio installation: ")
-    studio_root = pathlib.Path(new_path)
-    if not is_studio_installed():
-        print("Studio was not found on the specified path.")
+    print("Please select the Studio 2.0 installation you want to use:\n")
+    options = [x for x in known_paths if exists(x[0])]
+    for i, x in enumerate(options):
+        print(f"{i + 1}: {x[1]} [{x[0]}]")
+
+    choice = input(
+        "\n\nEnter the number or direct path of the installation you want to use: "
+    )
+
+    if not choice:
+        print("Exiting.")
+        sys.exit(0)
+    if not choice.isdigit():
+        if exists(pathlib.Path(choice)):
+            studio_root = pathlib.Path(choice)
+        else:
+            print("That path does not exist. Exiting.")
+            sys.exit(1)
+    elif int(choice) < 1 or int(choice) > len(options):
+        print("That was not an option. Exiting.")
         sys.exit(1)
+    else:
+        studio_root = options[int(choice) - 1][0]
+
+    studio_data_root = studio_root / "data"
 else:
-    print("Studio was not found on the default install location, but Studio EarlyAccess was.")
+    path = " ".join(sys.argv[1:])
+    studio_data_root = pathlib.Path(path)
+    if not exists(studio_data_root):
+        print("The path you provided does not exist. Exiting.")
+        sys.exit(1)
 
-print(f"Using Studio installation at: {studio_root}")
-
-studio_data_root = studio_root / "data"
-
-elevate()
-
-logfile = open("log.txt", "w", errors="replace", encoding="utf-8")
+elevate(str(studio_data_root))
+logfile = open(log_file, "w", errors="replace", encoding="utf-8")
 
 ensure_backup_original()
 
