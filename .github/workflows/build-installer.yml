@@ -27,6 +27,7 @@ jobs:
       run: |
         py -m pip install --upgrade pip
         py -m pip install -U pyinstaller
+        py -c "import platform; print(platform.machine())"
     - name: Build
       run: C:\hostedtoolcache\windows\Python\3.12.2\x64\Scripts\pyinstaller ./installer/install.py
     - name: Upload a Build Artifact
