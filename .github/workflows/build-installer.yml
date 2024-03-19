@@ -28,7 +28,7 @@ jobs:
         py -m pip install --upgrade pip
         py -m pip install -U pyinstaller
     - name: Build
-      run: pyinstaller install.py
+      run: py -m pyinstaller install.py
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.3.1
       with:
