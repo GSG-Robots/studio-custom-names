@@ -1,6 +1,6 @@
 """
 Studio Custom Names is a program to change the names of the parts in Studio 2.0.
-Copyright (C) 2024 GSG-Robots & J0J0HA
+Copyright (C) 2024 GSG-Robots & J0J0HA aka. JoJoJux
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -36,10 +36,12 @@ id_rules = {}
 print(
     """
 ----------
-Studio Custom Names - Copyright (C) 2024  GSG-Robots & J0J0HA
+Studio Custom Names - Copyright (C) 2024  GSG-Robots & J0J0HA aka. JoJoJux
 This program comes with ABSOLUTELY NO WARRANTY; for details see the LICENSE-file.
 This is free software, and you are welcome to redistribute it
 under certain conditions; for details see the LICENSE-file.
+
+If you get prompted to input a path, you can type "license" to view the license.
 ----------
 """
 )
@@ -72,12 +74,21 @@ def follow_until_closed(path: pathlib.Path):
 
 def elevate(selected_path):
     if not is_admin():
-        print("Not admin, elevating...\n\n")
+        print(
+            "\nYou are not running as Administrator. Elevating...\n\nPlease accept the UAC prompt."
+        )
+        if " " in str(config_root):
+            print(
+                "The path to this program contains spaces. This is not supported. Run this program from a path without spaces, or directly as Administrator. Exiting."
+            )
+            sys.exit(1)
+        if os.path.exists(elev_proxy_file):
+            os.remove(elev_proxy_file)
         code = ctypes.windll.shell32.ShellExecuteW(
             None,
             "runas",
             "cmd",
-            f"/c \"{sys.executable} {str(config_root / 'main.py')} {selected_path}\" >> {elev_proxy_file}",
+            f"/C \"{sys.executable}\" {str(config_root / 'main.py')} {selected_path} >> {elev_proxy_file}",
             0,
         )
         success = code >= 32
@@ -86,9 +97,11 @@ def elevate(selected_path):
             sys.exit(1)
         while not os.path.exists(elev_proxy_file):
             time.sleep(0.1)
-        for line in follow_until_closed(elev_proxy_file):
-            print(line, end="")
-        os.remove(elev_proxy_file)
+        try:
+            for line in follow_until_closed(elev_proxy_file):
+                print(line, end="")
+        finally:
+            os.remove(elev_proxy_file)
         sys.exit(0)
 
 
@@ -191,8 +204,16 @@ if not sys.argv[1:]:
             "Studio 2.0 (Default Directory)",
         ),
         (
+            pathlib.Path(r"C:\Program Files (x86)\Studio 2.0"),
+            "Studio 2.0 32bit (Default Directory)",
+        ),
+        (
             pathlib.Path(r"C:\Program Files\Studio 2.0 EarlyAccess"),
             "Studio 2.0 EarlyAccess (Default Directory)",
+        ),
+        (
+            pathlib.Path(r"C:\Program Files (x86)\Studio 2.0 EarlyAccess"),
+            "Studio 2.0 EarlyAccess 32bit (Default Directory)",
         ),
     ]
 
@@ -204,6 +225,13 @@ if not sys.argv[1:]:
     choice = input(
         "\n\nEnter the number or direct path of the installation you want to use: "
     )
+
+    if choice.lower() == "license":
+        with open(
+            config_root / "LICENSE", "r", errors="replace", encoding="utf-8"
+        ) as f:
+            print(f.read())
+        sys.exit(0)
 
     if not choice:
         print("Exiting.")
