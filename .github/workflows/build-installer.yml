@@ -33,5 +33,5 @@ jobs:
       uses: actions/upload-artifact@v4.3.1
       with:
         name: install.exe
-        path: ./dist/install.exe
+        path: ./dist/install/install.exe
         retention-days: 90
