@@ -26,9 +26,9 @@ jobs:
     - name: Install dependencies
       run: |
         py -m pip install --upgrade pip
-        py -m pip install -U nuitka
+        py -m pip install -U pyinstaller
     - name: Build
-      run: py -m nuitka install.py --standalone --onefile
+      run: C:\hostedtoolcache\windows\Python\3.12.2\x64\Scripts\pyinstaller ./installer/install.py
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.3.1
       with:
