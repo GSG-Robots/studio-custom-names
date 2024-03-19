@@ -66,3 +66,8 @@ To revert the changes, simply delete the ``StudioPartsDefinition2.txt`` file in 
 Then, move/rename the ``StudioPartsDefinition2.txt.original`` file to ``StudioPartsDefinition2.txt``.
 
 Alternatively, you can run delete all the rules files in the ``rules`` directory and run the script again.
+
+## After an Studio update
+
+After an update of Studio, the ``StudioPartsDefinition2.txt`` file may be overwritten. Please open Studio and see if the changed part names are still correct.
+If not, you have to delete the ``StudioPartsDefinition2.txt.original`` file and run the script.
