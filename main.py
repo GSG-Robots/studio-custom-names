@@ -25,7 +25,6 @@ import glob
 
 
 config_root = pathlib.Path(__file__).parent.absolute()
-studio_data_root = pathlib.Path(r"C:\Program Files\Studio 2.0\data")
 
 regex_rules = {}
 id_rules = {}
@@ -53,6 +52,8 @@ def elevate():
         )
         _elevate()
 
+def is_studio_installed():
+    return os.path.exists(str(studio_root))
 
 def _load_id_rules(file_path):
     with open(file_path, "r", errors="replace", encoding="utf-8") as f:
@@ -141,6 +142,25 @@ def generate_regex_result(s):
 
 
 #########
+
+studio_root = pathlib.Path(r"C:\Program Files\Studio 2.0")
+
+if not is_studio_installed():
+    studio_root = pathlib.Path(r"C:\Program Files (x86)\Studio 2.0 EarlyAccess")
+    
+if not is_studio_installed():
+    print("Studio was not found on the default install location.")
+    new_path = input("Please enter the path to the Studio installation: ")
+    studio_root = pathlib.Path(new_path)
+    if not is_studio_installed():
+        print("Studio was not found on the specified path.")
+        sys.exit(1)
+else:
+    print("Studio was not found on the default install location, but Studio EarlyAccess was.")
+
+print(f"Using Studio installation at: {studio_root}")
+
+studio_data_root = studio_root / "data"
 
 elevate()
 
