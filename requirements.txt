@@ -1,1 +1,0 @@
-# Using poetry is highly encouraged, no support for problems with other installation methods
