@@ -1,5 +1,6 @@
 10928    Technic, Gear 8 Tooth with Dual Face                                             =>                         Zahnrad XS eckig
 11214    Technic, Axle  1L with Pin 2L with Friction Ridges                               =>                 dunkelgraues Specialteil
+11478    Technic, Liftarm Thin 1 x 5 - Axle Holes                                         =>        halber 5er Beam mit Achsenlöchern
 14720    Technic, Liftarm, Modified H-Shape Thick 3 x 5 Perpendicular                     =>                                  Knochen
 15100    Technic, Pin with Friction Ridges and Pin Hole                                   =>                         Hähnchenschenkel
 15458    Technic, Panel Plate 3 x 11 x 1                                                  =>                        Platte 3 x 11 x 1
