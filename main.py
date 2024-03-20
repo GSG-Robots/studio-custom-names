@@ -27,11 +27,13 @@ import sys
 
 TERMINAL_WIDTH = shutil.get_terminal_size().columns
 
+
 def print_limited_width(text, end="\n"):
     if len(text) > TERMINAL_WIDTH:
-        print(text[:TERMINAL_WIDTH - 6 - len(end)] + " [...]", end=end)
+        print(text[: TERMINAL_WIDTH - 6 - len(end)] + " [...]", end=end)
     else:
         print(text, end=end)
+
 
 def print_license():
     with open("LICENSE", "r", encoding="utf-8") as f:
@@ -168,6 +170,7 @@ TARGET_FILE = STUDIO_ROOT / "data" / "StudioPartDefinition2.txt"
 
 LOG_FILE = open(CHANGES_FILE, "w", encoding="utf-8")
 
+
 def _load_id_rules(file_path):
     with open(file_path, "r", errors="replace", encoding="utf-8") as f:
         mapping_raw = f.read()
@@ -216,22 +219,8 @@ def check_was_updated():
         target = f.read()
     if copy == target:
         return
-    print(
-        "It seems like the Parts definition was manipulated by another program. This most likely happened due to a Studio update."
-    )
-    print('-> If it was not a Studio update, choose "n".')
-    print('-> If it was a Studio update, choose "y".')
-    print(
-        "NOTE: If you choose the wrong option, it may lead to problems only fixable via a Studio reinstall (or maybe update)."
-    )
-    do = input_yn("Do you want to use the updated version as base?")
-    if do is True:
-        shutil.copyfile(str(TARGET_FILE), str(ORIGINAL_FILE))
-    elif do is False:
-        print("Continuing...")
-    else:
-        print("Aborting.")
-        pause_and_exit(1)
+    print("Part definition was updated. Updating cache...")
+    shutil.copyfile(str(TARGET_FILE), str(ORIGINAL_FILE))
 
 
 def ensure_backup_original():
