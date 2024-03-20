@@ -287,7 +287,7 @@ def apply_rules(table, id_rules, regex_rules):
         if name != row[6]:
             count += 1
             text = f"Applying: {part_id:<8} {row[6]:<80} => {name:>40}"
-            print(text, file=LOGFILE)
+            print(text, file=LOG_FILE)
             print_limited_width(text, end="\r")
         row[6] = name
     text = f"Done. Changed {count} names."
