@@ -51,6 +51,8 @@ def download_file(url, filename):
 ##########
 
 print()
+print("----------")
+print()
 
 arch = platform.machine().lower()
 
@@ -109,9 +111,19 @@ with open(INSTALL_DIR / "start.bat", "w", encoding="utf-8") as f:
     f.write(
         rf"""
 @echo off
-echo Welcome to StudioCustomNames!
 cd {INSTALL_DIR / "python-embed"}
 .\python.exe {INSTALL_DIR / "main.py"}
+echo ----------
+pause
+"""
+    )
+
+with open(INSTALL_DIR / "update.bat", "w", encoding="utf-8") as f:
+    f.write(
+        rf"""
+@echo off
+cd {INSTALL_DIR / "python-embed"}
+.\python.exe {INSTALL_DIR / "installer" / "install.py"}
 echo ----------
 pause
 """
