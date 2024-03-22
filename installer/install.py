@@ -101,12 +101,31 @@ download_file(
     INSTALL_DIR / "python-3.12.2-embed.zip",
 )
 
+print("Downloading PIP...")
+download_file(
+    "https://bootstrap.pypa.io/get-pip.py",
+    INSTALL_DIR / "installer" / "get-pip.py",
+)
+
 print("Extracting Python...")
 with zipfile.ZipFile(INSTALL_DIR / "python-3.12.2-embed.zip", "r") as zip_ref:
     zip_ref.extractall(INSTALL_DIR / "python-embed")
 
+print("Installing PIP...")
+os.system(
+    f"{INSTALL_DIR / 'python-embed' / 'python.exe'} {INSTALL_DIR / 'installer' / 'get-pip.py'}"
+)
+
+print("Installing requirements...")
+os.system(
+    f"{INSTALL_DIR / 'python-embed' / 'python.exe'} -m pip install -r {INSTALL_DIR / 'requirements.txt'}"
+)
+
+print("Cleaning up...")
 os.remove(get_appdata() / "StudioCustomNames.zip")
 os.remove(INSTALL_DIR / "python-3.12.2-embed.zip")
+
+print("Setting up .bat starters...")
 with open(INSTALL_DIR / "start.bat", "w", encoding="utf-8") as f:
     f.write(
         rf"""
@@ -129,6 +148,7 @@ pause
 """
     )
 
+print("Cleaning up...")
 remove_dir(EXTRACT_DIR)
 
 if is_update:
