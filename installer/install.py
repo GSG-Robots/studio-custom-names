@@ -111,6 +111,10 @@ print("Extracting Python...")
 with zipfile.ZipFile(INSTALL_DIR / "python-3.12.2-embed.zip", "r") as zip_ref:
     zip_ref.extractall(INSTALL_DIR / "python-embed")
 
+print("Activating PIP...")
+with open(INSTALL_DIR / "python-embed" / "python312._pth", "a", encoding="utf-8") as f:
+    f.write("import site\n")
+
 print("Installing PIP...")
 os.system(
     f"{INSTALL_DIR / 'python-embed' / 'python.exe'} {INSTALL_DIR / 'installer' / 'get-pip.py'}"
