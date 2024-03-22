@@ -64,6 +64,7 @@ if not arch in ("amd64", "win32", "arm64"):
 is_update = False
 
 RULES_BACKUP = get_appdata() / "StudioCustomNames_rules_backup"
+UPDATE_DIR = get_appdata() / "StudioCustomNames_update"
 INSTALL_DIR = get_appdata() / "StudioCustomNames"
 ZIP_FILE = get_appdata() / "StudioCustomNames.zip"
 EXTRACT_DIR = get_appdata() / "studio-custom-names-main"
@@ -149,6 +150,17 @@ cd {INSTALL_DIR / "python-embed"}
 .\python.exe {INSTALL_DIR / "installer" / "install.py"}
 echo ----------
 pause
+
+@echo off
+mkdir {UPDATE_DIR}
+move {INSTALL_DIR / "python-embed"} {UPDATE_DIR}
+move {INSTALL_DIR / "installer" / "install.py"} {UPDATE_DIR / "install.py"}
+cd {UPDATE_DIR}
+{UPDATE_DIR / "python-embed" / "python.exe"} {UPDATE_DIR / "install.py"}
+echo ----------
+rmdir /S /Q {UPDATE_DIR}
+pause
+
 """
     )
 
